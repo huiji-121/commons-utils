@@ -44,7 +44,7 @@ bintray {
         name = project.name
         userOrg = 'huiji-121'
         licenses = ['Apache-2.0']
-        vcsUrl = "https://github.com/huiji-121/huiji121/${project.name}/"
+        vcsUrl = "https://github.com/huiji-121/${project.name}/"
         version {
             name = project.version
         }

@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+    }
+}
+
+group 'com.huiji-121'
+version '1.0.0'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'com.jfrog.bintray'
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+dependencies {
+    compile 'commons-codec:commons-codec:1.10'
+    compile 'org.apache.commons:commons-lang3:3.5'
+    compile 'org.slf4j:slf4j-api:1.7.22'
+    compile 'dom4j:dom4j:1.6.1'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
+    compile 'javax.servlet:javax.servlet-api:3.1.0'
+    compile 'org.bouncycastle:bcprov-jdk15on:1.60'
+
+    testCompile 'org.slf4j:slf4j-jdk14:1.7.22'
+    testCompile 'junit:junit:4.12'
+}
+
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : '<bintrayUser>'
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : '<bintrayApiKey>'
+    configurations = ['archives']
+    dryRun = false //[Default: false] Whether to run this as dry-run, without deploying
+    publish = true //[Default: false] Whether version should be auto published after an upload
+    override = false //[Default: false] Whether to override version artifacts already published
+    pkg {
+        repo = 'huiji121'
+        name = project.name
+        userOrg = 'huiji-121'
+        licenses = ['Apache-2.0']
+        vcsUrl = "https://github.com/huiji-121/huiji121/${project.name}/"
+        version {
+            name = project.version
+        }
+    }
+}
+
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
